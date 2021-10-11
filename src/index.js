@@ -21,21 +21,20 @@ app.set("trust proxy", true);
 const LargeJSONBodyParser = bodyParser.json({
   limit: "750mb"
 });
-app.use(express.static("./public"));
 
 // Creating a post route to handle the the webhook call
 // Adding json body parser middleware
 // Also Adding vev signature validator (you find the implementation at the bottom)
 app.post(
-  "/webhook-receiver",
+  "/receiver",
   LargeJSONBodyParser,
-  VevSignatureMiddleware,
+  vevSignatureMiddleware,
   async (req, res) => {
     const { payload, event } = req.body;
     console.log("event: ", event);
     console.log("payload: ", payload);
     if (event === "PUBLISH") {
-      await Promise.all(payload.pages.map(StoreVevPage));
+      await Promise.all(payload.pages.map(storeVevPage));
     } else if (event === "PING") {
       console.log("Webhook test ping received from: " + req.ip);
     }
@@ -44,7 +43,7 @@ app.post(
   }
 );
 
-async function StoreVevPage(page) {
+async function storeVevPage(page) {
   // Putting the files in the public dir
   // if page is index page then set the path to be public/index.html
   let pagePath = path.join("./public", page.index ? "index.html" : page.path);
@@ -67,7 +66,7 @@ async function StoreVevPage(page) {
   await fs.promises.writeFile(pagePath, page.html);
 }
 
-function VevSignatureMiddleware(req, res, next) {
+function vevSignatureMiddleware(req, res, next) {
   const signatureHeader = req.get("X-Vev-Signature");
   if (!signatureHeader) return next("Missing signature");
 
