@@ -43,6 +43,10 @@ app.post(
       await Promise.all(payload.pages.map(storeVevPage));
     } else if (event === "PING") {
       console.log("Webhook test ping received from: " + req.ip);
+    } else if (event === 'UNPUBLISH') {
+      console.log('UNPUBLISH page - not (yet) supported');
+    } else {
+      throw new Error(`Unsupported event [${ event }]`);
     }
 
     res.send({ message: "I received your webhook!!" });
