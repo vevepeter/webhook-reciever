@@ -6,11 +6,24 @@
  *
  * [Read more here](https://help.vev.design/hosting/custom/webhook)
  */
+import _ from 'lodash';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { loggerMiddleware } from './loggerMiddleware.js';
 import { storeVevPage } from './storeVevPage.js';
 import { vevSignatureMiddleware } from './vevSignatureMiddleware.js';
+
+const logPayload = payload => {
+  const use = _.cloneDeep(payload);
+  use.pages = use.pages || [];
+  
+  for (const page of use.pages) {
+    page.html = (page.html || '123456789012345678901234567890').slice(0, 30) + '[... truncated]'
+  }
+  
+  console.log('Payload:');
+  console.log(use);
+}
 
 const app = express();
 app.set("trust proxy", true);
@@ -22,8 +35,10 @@ app.post(
   vevSignatureMiddleware,
   async (req, res) => {
     const { payload, event } = req.body;
-    console.log("event: ", event);
-    console.log("payload: ", payload);
+  
+    console.log("Event: ", event);
+    logPayload(payload);
+
     if (event === "PUBLISH") {
       await Promise.all(payload.pages.map(storeVevPage));
     } else if (event === "PING") {
