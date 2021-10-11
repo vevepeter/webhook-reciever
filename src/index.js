@@ -8,9 +8,9 @@
  */
 import express from 'express';
 import bodyParser from 'body-parser';
-import { loggerMiddleware } from 'src/loggerMiddleware';
-import { storeVevPage } from 'src/storeVevPage';
-import { vevSignatureMiddleware } from 'src/vevSignatureMiddleware';
+import { loggerMiddleware } from './loggerMiddleware.js';
+import { storeVevPage } from './storeVevPage.js';
+import { vevSignatureMiddleware } from './vevSignatureMiddleware.js';
 
 const app = express();
 app.set("trust proxy", true);

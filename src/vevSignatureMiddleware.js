@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import secret from 'secret';
+import secret from '../secret.js';
 
 export function vevSignatureMiddleware(req, res, next) {
   const signatureHeader = req.get("X-Vev-Signature");
