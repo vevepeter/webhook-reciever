@@ -4,9 +4,10 @@ import bodyParser from 'body-parser';
 import { loggerMiddleware } from './loggerMiddleware.js';
 import { storeVevPage } from './storeVevPage.js';
 import { vevSignatureMiddleware } from './vevSignatureMiddleware.js';
+import { errorMiddleware } from 'src/errorMiddleware';
 
 const logPayload = payload => {
-  const use = _.cloneDeep(payload);
+  const use = _.cloneDeep(payload) || {};
   use.pages = use.pages || [];
   
   for (const page of use.pages) {
@@ -22,17 +23,21 @@ app.set("trust proxy", true);
 
 app.post(
   "/receiver",
-  bodyParser.json(),
+  errorMiddleware,
+  bodyParser.json({
+    limit: '200000kb',
+  }),
   loggerMiddleware,
   vevSignatureMiddleware,
   async (req, res) => {
     const { payload, event } = req.body;
-  
+    const pages = (payload && payload.pages) || [];
+
     console.log("Event: ", event);
     logPayload(payload);
 
     if (event === "PUBLISH") {
-      await Promise.all(payload.pages.map(storeVevPage));
+      await Promise.all(pages.map(storeVevPage));
     } else if (event === "PING") {
       console.log("Webhook test ping received from: " + req.ip);
     } else if (event === 'UNPUBLISH') {
