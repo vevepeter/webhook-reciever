@@ -1,11 +1,3 @@
-/**
- * Vev Examples - Webhook Server
- *
- * A NodeJS + Express example server for receiving
- * PUBLISH events from Vev securely.
- *
- * [Read more here](https://help.vev.design/hosting/custom/webhook)
- */
 import _ from 'lodash';
 import express from 'express';
 import bodyParser from 'body-parser';
