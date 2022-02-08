@@ -37,7 +37,9 @@ app.post(
     logPayload(payload);
 
     if (event === "PUBLISH") {
-      await Promise.all(pages.map(storeVevPage));
+      const projectDir = payload.dir;
+ 
+      await Promise.all(pages.map(page => storeVevPage(page, projectDir)));
     } else if (event === "PING") {
       console.log("Webhook test ping received from: " + req.ip);
     } else if (event === 'UNPUBLISH') {

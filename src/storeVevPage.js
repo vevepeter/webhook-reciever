@@ -1,10 +1,10 @@
 import path from 'path';
 import fs from 'fs';
 
-export async function storeVevPage(page) {
+export async function storeVevPage(page, projectDir = '') {
   // Putting the files in the public dir
   // if page is index page then set the path to be public/index.html
-  let pagePath = path.join("./public", page.index ? "index.html" : page.path);
+  let pagePath = path.join("./public/" + projectDir, page.index ? "index.html" : page.path);
   
   // Page path can have file extension
   if (!path.extname(pagePath)) pagePath = path.join(pagePath, "index.html");
