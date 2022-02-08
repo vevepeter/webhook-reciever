@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { loggerMiddleware } from './loggerMiddleware.js';
 import { storeVevPage } from './storeVevPage.js';
 import { vevSignatureMiddleware } from './vevSignatureMiddleware.js';
-import { errorMiddleware } from 'src/errorMiddleware';
+import { errorMiddleware } from './errorMiddleware.js';
 
 const logPayload = payload => {
   const use = _.cloneDeep(payload) || {};
