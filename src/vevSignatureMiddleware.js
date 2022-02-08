@@ -2,6 +2,12 @@ import crypto from 'crypto';
 import secret from '../secret.js';
 
 export function vevSignatureMiddleware(req, res, next) {
+  if (!secret) {
+    console.log('No secret found, proceeding without validating');
+    
+    next();
+  }
+
   const signatureHeader = req.get("X-Vev-Signature");
   if (!signatureHeader) return next("Missing signature");
   

@@ -20,6 +20,6 @@ export async function storeVevPage(page) {
     await fs.promises.mkdir(dir, { recursive: true });
   }
   
-  //Writing the file to the page path
+  // Writing the file to the page path
   await fs.promises.writeFile(pagePath, page.html);
 }
