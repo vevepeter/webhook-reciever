@@ -22,7 +22,7 @@ const app = express();
 app.set("trust proxy", true);
 
 app.post(
-  "/receiver",
+  "/webhook",
   errorMiddleware,
   bodyParser.json({
     limit: '200000kb',
