@@ -13,3 +13,4 @@ Received files are stored in the `public` folder in the project, but there is no
 * Typing of payload
 * Add middleware for serving static files to more easily see results
 * Add steps to setting up a test Hosting in Vev
+* Need better handling of Projects published to root
