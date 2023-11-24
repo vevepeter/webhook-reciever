@@ -1,4 +1,4 @@
 export const sanitizePath = (path: string) =>
-  path
+  ('/' + path)
     .replace(/\/+/g, '/')
     .replace(/\/$/, '')
