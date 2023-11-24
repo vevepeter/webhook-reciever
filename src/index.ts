@@ -5,6 +5,8 @@ import { vevSignatureMiddleware } from './vevSignatureMiddleware'
 import { errorMiddleware } from './errorMiddleware'
 import { receiverMiddleware } from './receiverMiddleware'
 
+const PORT = 8001
+
 const app = express()
 app.set('trust proxy', true)
 
@@ -19,4 +21,4 @@ app.post(
   receiverMiddleware
 )
 
-app.listen(8001, () => console.log(`Example app listening on port 8001!`))
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
