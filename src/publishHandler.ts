@@ -24,11 +24,6 @@ const publishHandler = async (body: WebhookPublishBody) => {
  * @param pages
  */
 const downloadPages = async (pages: WebhookPage[]) => {
-  pages
-    .filter(page => page.downloadUrl)
-    .map(page => page.downloadUrl)
-    .map(url => fetch(url))
-
   for (const page of pages) {
     if (page.downloadUrl) {
       const response = await fetch(page.downloadUrl)
