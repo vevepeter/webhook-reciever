@@ -18,6 +18,11 @@ const publishHandler = async (body: WebhookPublishBody) => {
   }
 }
 
+/**
+ * Populates the pages' `html` fields
+ *
+ * @param pages
+ */
 const downloadPages = async (pages: WebhookPage[]) => {
   pages
     .filter(page => page.downloadUrl)
