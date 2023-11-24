@@ -4,7 +4,7 @@ import { loggerMiddleware } from './loggerMiddleware'
 import { vevSignatureMiddleware } from './vevSignatureMiddleware'
 import { errorMiddleware } from './errorMiddleware'
 import { receiverMiddleware } from './receiverMiddleware'
-import { serverMiddleware } from './server-middleware'
+import { serverMiddleware } from './serverMiddleware'
 
 export const files: Record<string, string> = {}
 
