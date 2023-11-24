@@ -1,9 +1,9 @@
-import { NextFunction, Request } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
-export function loggerMiddleware(req: Request, _res, next: NextFunction) {
+export function loggerMiddleware(req: Request, _res: Response, next: NextFunction) {
   const length = (JSON.stringify(req.body) || '').length
 
-  console.log('Request body length:', length)
+  console.log(`[${req.method}]\t`, req.path, '\t', length + 'bytes')
 
   next()
 }
