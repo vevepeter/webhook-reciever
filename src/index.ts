@@ -5,8 +5,6 @@ import { vevSignatureMiddleware } from './vevSignatureMiddleware'
 import { errorMiddleware } from './errorMiddleware'
 import { receiverMiddleware } from './receiverMiddleware'
 
-export const files: Record<string, string> = {}
-
 const PORT = 8001
 
 const app = express()
