@@ -21,6 +21,7 @@ type WebhookPayload = {}
 export type WebhookPage = {
   downloadUrl?:string
   html?: string
+  index?: boolean
   path: string
   title: string
   viewerUrl: string
