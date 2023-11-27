@@ -17,7 +17,7 @@ const publishHandler = async (body: WebhookPublishBody) => {
       const assPath = path.join('./public/', payload.dir, assetsFolder, getAssetPath(asset, assetsFolder))
       await saveFile(assPath, Buffer.from(buffer))
 
-      console.log(`. saved asset\n\t${asset}\n\t-> ${assPath.toString()}`)
+      console.log(`+ saved asset\n\t${asset}\n\t-> ${assPath.toString()}`)
     }
   }
 
@@ -30,6 +30,11 @@ const publishHandler = async (body: WebhookPublishBody) => {
     if (page.html)
       await saveFile(pagePath, page.html)
   }
+
+  console.log(`+ All project files saved for: "${body.payload.projectTitle}" [${body.payload.projectId}]`)
+
+  for (const page of payload.pages)
+    console.log('+\tSaved page:', page.title, '@', page.path)
 }
 
 /**
