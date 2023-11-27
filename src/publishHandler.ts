@@ -8,7 +8,9 @@ const publishHandler = async (body: WebhookPublishBody) => {
   if (isOfflineAssets(body)) {
     const { assets, assetsFolder } = payload
 
-    for (const asset of assets) {
+    for (const asset of (assets || [])) {
+      if (!assetsFolder) throw new Error('Missing field "assetsFolder"')
+
       const response = await fetch(asset)
       const contents = await response.text()
 
@@ -25,7 +27,8 @@ const publishHandler = async (body: WebhookPublishBody) => {
     let pagePath = path.join('./public/', payload.dir, page.index ? 'index.html' : page.path)
     if (!path.extname(pagePath)) pagePath = path.join(pagePath, 'index.html')
 
-    await saveFile(pagePath, page.html)
+    if (page.html)
+      await saveFile(pagePath, page.html)
   }
 }
 
@@ -45,7 +48,7 @@ const downloadPages = async (pages: WebhookPage[]) => {
 }
 
 const getAssetPath = (path: string, assetsFolder: string) =>
-  path.match(/.*(\/.*$)/)?.[1]
+  path.match(/.*(\/.*$)/)?.[1] || ''
 
 const isDownloadPagesWebhook = (body: WebhookPublishBody) =>
   body.payload.pages.reduce((prev, current) => prev || !!current.downloadUrl, false)

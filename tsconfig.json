@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "strict": true,
     "lib": ["es2023"],
     "module": "NodeNext",
     "target": "es2022",

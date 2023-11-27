@@ -1,7 +1,8 @@
 import { createHmac } from 'crypto'
 import secret from '../secret'
+import { NextFunction, Request, Response } from 'express'
 
-export function vevSignatureMiddleware(req, res, next) {
+export function vevSignatureMiddleware(req: Request, _res: Response, next: NextFunction) {
   if (!secret) {
     console.log('No secret found, proceeding without validating')
 
