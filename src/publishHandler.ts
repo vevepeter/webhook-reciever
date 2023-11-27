@@ -12,10 +12,10 @@ const publishHandler = async (body: WebhookPublishBody) => {
       if (!assetsFolder) throw new Error('Missing field "assetsFolder"')
 
       const response = await fetch(asset)
-      const contents = await response.text()
+      const buffer = await response.arrayBuffer();
 
       const assPath = path.join('./public/', payload.dir, assetsFolder, getAssetPath(asset, assetsFolder))
-      await saveFile(assPath, contents)
+      await saveFile(assPath, Buffer.from(buffer))
 
       console.log(`. saved asset\n\t${asset}\n\t-> ${assPath.toString()}`)
     }
@@ -56,8 +56,8 @@ const isDownloadPagesWebhook = (body: WebhookPublishBody) =>
 const isOfflineAssets = (body: WebhookPublishBody) =>
   !!body.payload.assetsFolder
 
-const saveFile = async (filePath: string, contents: string) => {
-  console.debug('. writing', contents.length, 'bytes to:', filePath)
+const saveFile = async (filePath: string, contents: Buffer | string) => {
+  console.debug('. writing:', filePath)
   const dir = path.dirname(filePath)
 
   // ensure folder exists
