@@ -1,6 +1,6 @@
-import { WebhookPage, WebhookPublishBody } from './receiverMiddleware'
 import path from 'path'
 import fs from 'fs'
+import { WebhookPage, WebhookPublishBody } from './types'
 
 const publishHandler = async (body: WebhookPublishBody) => {
   const { payload } = body
