@@ -2,7 +2,7 @@
 
 For testing the Vev Webhook, all that is needed is a file called `secret.ts` located in the root folder that exports (default) your secret.
 
-[Read about Vev Webhooks here](https://help.vev.design/hosting/custom/webhook)
+[Read about Vev Webhooks here](https://help.vev.design/en/articles/6165061-webhook-integrations)
 
 ## Setting up a Hosting
 
