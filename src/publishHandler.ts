@@ -6,6 +6,7 @@ const publishHandler = async (body: WebhookPublishBody) => {
   const { payload } = body
 
   if (isOfflineAssets(body)) {
+    console.log('Downloading all assets')
     const { assets, assetsFolder } = payload
 
     for (const asset of (assets || [])) {
@@ -43,6 +44,8 @@ const publishHandler = async (body: WebhookPublishBody) => {
  * @param pages
  */
 const downloadPages = async (pages: WebhookPage[]) => {
+  console.log('Downloading all pages')
+
   for (const page of pages) {
     if (page.downloadUrl) {
       const response = await fetch(page.downloadUrl)
