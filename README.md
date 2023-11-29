@@ -24,4 +24,4 @@ For testing the Vev Webhook, all that is needed is a file called `secret.ts` loc
 
 ## Notes
 
-Received files are stored in the `public` folder in the project, but there is no middleware for showing static files.
+Received files are stored in the `public` folder in the project.
