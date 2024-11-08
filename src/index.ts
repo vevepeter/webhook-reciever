@@ -5,7 +5,7 @@ import { vevSignatureMiddleware } from './vevSignatureMiddleware'
 import { errorMiddleware } from './errorMiddleware'
 import { receiverMiddleware } from './receiverMiddleware'
 
-const PORT = 8001
+const PORT = 8088
 
 const app = express()
 app.set('trust proxy', true)
