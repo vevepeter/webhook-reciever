@@ -15,7 +15,7 @@ For testing the Vev Webhook, all that is needed is a file called `secret.ts` loc
   Vev CDN
 * (optional) Webhook security
     * While we recommend *always* having security set up, for initial testing, this can be omitted
-    * All requests from the Vev Webhook are sent from the same IP address (35.188.173.106), so whitelisting can be used as (additional) security
+    * All requests from the Vev Webhook are sent from the same IP address (34.72.55.20), so whitelisting can be used as (additional) security
 * Enable the option to allow Vev to send ping events
 * Under Signature, click the button to generate a new token, copy and paste into `secret.ts`
   * Example: `export default '[secret-token-here]'`
