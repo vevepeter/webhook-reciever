@@ -10,8 +10,7 @@
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "clean:server": "rm -rf ./public",
-    "start": "npm run clean && npm run build && node dist/src/index.js",
-    "start:ngrok": "ngrok http 8001"
+    "start": "npm run clean && npm run build && node dist/src/index.js"
   },
   "author": "Peter",
   "license": "MIT",
