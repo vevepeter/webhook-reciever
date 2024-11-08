@@ -49,6 +49,10 @@ export type WebhookPublishPayload = {
    * Project directory, treated as the project's path, used for linking from Vev
    */
   dir: string
+  embedScripts?: {
+    downloadUrl: string;
+    localPath: string;
+  }[]
   pages: WebhookPage[]
   /**
    * Settings for all hosting plugins, present if the Hosting has `sendPackageSettings` enabled

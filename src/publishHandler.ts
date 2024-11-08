@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import { WebhookPage, WebhookPublishBody } from './types'
+import { WebhookPage, WebhookPublishBody, WebhookPublishPayload } from './types'
 
 const publishHandler = async (body: WebhookPublishBody) => {
   const { payload } = body
@@ -22,7 +22,11 @@ const publishHandler = async (body: WebhookPublishBody) => {
     }
   }
 
-  if (isDownloadPagesWebhook(body)) await downloadPages(payload.pages)
+  if (isDownloadPagesWebhook(body)) {
+    await downloadPages(payload.pages)
+
+    await downloadEmbedScripts(payload)
+  }
 
   for (const page of payload.pages) {
     let pagePath = path.join('./public/', payload.dir, page.index ? 'index.html' : page.path)
@@ -36,6 +40,23 @@ const publishHandler = async (body: WebhookPublishBody) => {
 
   for (const page of payload.pages)
     console.log('+\tSaved page:', page.title, '@', page.path)
+}
+
+/**
+ * Downloads embed scripts and puts them in the correct location
+ */
+const downloadEmbedScripts = async (payload: WebhookPublishPayload) => {
+  const { embedScripts } = payload
+
+  if (!embedScripts) return;
+
+  console.log('Downloading embed scripts')
+  for (const { downloadUrl, localPath } of embedScripts) {
+    const response = await fetch(downloadUrl)
+    const script = await response.text()
+
+    await saveFile(`./public${payload.dir}/${localPath}`, script)
+  }
 }
 
 /**
